@@ -4,6 +4,7 @@
 #include "HCameraActor.h"
 #include "HeteroSpaceCharacter.h"
 #include "Camera/CameraComponent.h"
+#include "HeteroSpaceGameMode.h"
 
 AHCameraActor::AHCameraActor()
 {
@@ -25,14 +26,27 @@ void AHCameraActor::BeginPlay()
 
 void AHCameraActor::Tick(float DeltaSeconds)
 {
-	if (copyCamera)
+	AHeteroSpaceGameMode* GM = Cast<AHeteroSpaceGameMode>(GetWorld()->GetAuthGameMode());
+	if (GM) 
 	{
-		FTransform transform = copyCamera->GetComponentTransform();
-		FVector location = transform.GetLocation();
-		location.Y += 10000;
-		transform.SetLocation(location);
-		this->SetActorTransform(transform);
+		if (copyCamera && GM->isReversed)
+		{
+			FTransform transform = copyCamera->GetComponentTransform();
+			FVector location = transform.GetLocation();
+			location.Y -= 10000;
+			transform.SetLocation(location);
+			this->SetActorTransform(transform);
+		}
+		else
+		{
+			FTransform transform = copyCamera->GetComponentTransform();
+			FVector location = transform.GetLocation();
+			location.Y += 10000;
+			transform.SetLocation(location);
+			this->SetActorTransform(transform);
+		}
 	}
+
 }
 
 

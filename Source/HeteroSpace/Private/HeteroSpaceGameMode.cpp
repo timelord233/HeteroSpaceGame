@@ -11,7 +11,7 @@ AHeteroSpaceGameMode::AHeteroSpaceGameMode()
 {
 	// use our custom PlayerController class
 	PlayerControllerClass = AHeteroSpacePlayerController::StaticClass();
-
+	isReversed = false;
 }
 
 void AHeteroSpaceGameMode::StartPlay()
