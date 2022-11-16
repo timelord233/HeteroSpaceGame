@@ -38,6 +38,7 @@ void AHeteroSpaceGameMode::InitGame(const FString& MapName, const FString& Optio
 		if (pushPawn) 
 		{
 			pushPawn->copyPushPawn = Cast<AHPushPawn>(spawned);
+			Cast<AHPushPawn>(spawned)->copyPushPawn = pushPawn;
 		}
 	}
 }
